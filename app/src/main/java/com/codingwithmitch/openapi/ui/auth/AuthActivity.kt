@@ -3,9 +3,9 @@ package com.codingwithmitch.openapi.ui.auth
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.codingwithmitch.openapi.R
+import com.codingwithmitch.openapi.ui.BaseActivity
 
-class AuthActivity : AppCompatActivity(){
-
+class AuthActivity : BaseActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -1,6 +1,7 @@
 package com.codingwithmitch.openapi.ui.auth
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.codingwithmitch.openapi.R
 import com.codingwithmitch.openapi.ui.BaseActivity

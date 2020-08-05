@@ -81,4 +81,12 @@ constructor(
         return AuthViewState()
     }
 
+    fun cancelActiveJobs() {
+        authRepository.cancelActiveJobs()
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        cancelActiveJobs()
+    }
 }

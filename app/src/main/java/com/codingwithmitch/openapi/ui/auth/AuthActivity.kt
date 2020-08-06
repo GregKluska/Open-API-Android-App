@@ -15,6 +15,7 @@ import com.codingwithmitch.openapi.ui.BaseActivity
 import com.codingwithmitch.openapi.ui.ResponseType
 import com.codingwithmitch.openapi.ui.main.MainActivity
 import com.codingwithmitch.openapi.viewmodels.ViewModelProviderFactory
+import kotlinx.android.synthetic.main.activity_auth.*
 import javax.inject.Inject
 
 class AuthActivity : BaseActivity(),
@@ -25,7 +26,6 @@ class AuthActivity : BaseActivity(),
     lateinit var providerFactory: ViewModelProviderFactory
 
     lateinit var viewModel: AuthViewModel
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +38,7 @@ class AuthActivity : BaseActivity(),
     fun subscribeObservers() {
 
         viewModel.dataState.observe(this, Observer { dataState ->
+            onDataStateChange(dataState)
             dataState.data?.let { data ->
                 data.data?.let { event ->
                     event.getContentIfNotHandled()?.let {
@@ -46,25 +47,6 @@ class AuthActivity : BaseActivity(),
                             viewModel.setAuthToken(it)
                         }
                     }
-                }
-
-                data.response?.let { event ->
-                    event.getContentIfNotHandled()?.let {
-
-                        when (it.responseType) {
-                            is ResponseType.Dialog -> {
-                                // inflate error dialog
-                            }
-                            is ResponseType.Toast -> {
-                                // show toast
-                            }
-                            is ResponseType.None -> {
-                                Log.e(TAG, "AuthActivity, Response ${it.message}")
-                            }
-                        }
-                    }
-
-
                 }
             }
         })
@@ -95,5 +77,13 @@ class AuthActivity : BaseActivity(),
         arguments: Bundle?
     ) {
         viewModel.cancelActiveJobs()
+    }
+
+    override fun displayProgressBar(bool: Boolean) {
+        if (bool) {
+            progress_bar.visibility = View.VISIBLE
+        } else {
+            progress_bar.visibility = View.GONE
+        }
     }
 }
